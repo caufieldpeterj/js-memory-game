@@ -1,5 +1,18 @@
+body {
+    /* background-color: blue; */
+    text-align: center;
+}
+
 .grid {
     display: flex;
     flex-wrap: wrap;
-    
+    /* background-color: aquamarine; */
+    min-height: 500px;
+    min-width: 500px;
+
+}
+
+#card {
+    max-width: 100px;
+    max-height: 150px;
 }
