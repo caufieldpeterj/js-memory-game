@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i=0;i<cardArray.length; i++) {
             // console.log(i);
             let card = document.createElement('img');
-            card.setAttribute('src', 'static/red_back.png');
-            card.setAttribute('id', 'card');
+            card.setAttribute('src', 'static/'+cardArray[i]+'.png');
+            card.setAttribute('id', cardArray[i][0]);
+            card.setAttribute('class', 'card');
             
             // give id from 0-cardArray.length
             card.setAttribute('data-id', i);
