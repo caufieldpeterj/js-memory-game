@@ -1,23 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     // card creation
-    const cardArray = [
-        {
-            name: '2C',
-            img: '/static/2C.png'
-        },
-        {
-            name: '2D',
-            img: '/static/2D.png'
-        },
-        {
-            name: '',
-            img: 'static/____.png'
-        },
-        {
-            name: '',
-            img: 'static/____.png'
-        },
-    ]
+    const cardArray = [];
+    const suits = ['H', 'C', 'S', 'D'];
+    const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+
+    for (let i=0; i<suits.length; i++) {
+        for (let j=0; j<ranks.length; j++) {
+            let card = ranks[j]+suits[i];
+            cardArray.push(card);
+        }
+    }
+    console.log(cardArray);
 
     // create game board
 
@@ -28,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const createBoard = () => {
         for (let i=0;i<cardArray.length; i++) {
-            console.log(i);
+            // console.log(i);
             let card = document.createElement('img');
             card.setAttribute('src', 'static/red_back.png');
             card.setAttribute('id', 'card');
@@ -51,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cards[optionTwoId].setAttribute('src', 'static/blue_back.png');
             cardsWon.push(cardsChosen);
         } else {
-            cards[optionOneId].setAttribute('src', './static/red_back.png');
-            cards[optionTwoId].setAttribute('src', './static/red_back.png');
+            cards[optionOneId].setAttribute('src', 'static/red_back.png');
+            cards[optionTwoId].setAttribute('src', 'static/red_back.png');
             alert('Sorry, no match');
         }
         cardsChosen = [];
@@ -62,8 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // flip cards
 
     flipCard = () => {
-        let cardId = this.getAttribute('data-id');
-        cardsChosen.push(cardArray[cardId].name);
+        console.log('card should flip now!')
+        
+        let card = document.getElementById('card');
+        let cardAttributes = card.getAttribute('data-id');
+        console.log(cardAttributes);
+        // let cardId = card.getAttribute('id');
+
+        // console.log('Card ID #: '+cardId);
+
+        // cardsChosen.push(cardArray[cardId].name);
         cardsChosenId.push(cardId);
         this.setAttribute('src', cardArray[cardId].img);
         if (cardsChosenId.length === 2) {
