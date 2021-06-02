@@ -6,30 +6,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i=0; i<suits.length; i++) {
         for (let j=0; j<ranks.length; j++) {
-            let card = ranks[j]+suits[i];
+            let card = {
+                name: ranks[j]+suits[i],
+                rank: ranks[j],
+                img: 'static/'+ranks[j]+suits[i]+'.png'
+            }    
             cardArray.push(card);
         }
     }
+
     console.log(cardArray);
 
-    // create game board
+    // shuffle deck
+    let deck = cardArray
+    let count = cardArray.length;
+    while (count) {
+        deck.push(deck.splice(Math.floor(Math.random()*count),1)[0]);
+        count--;
+    }
 
+    // ************ARRAYS ARE IDENTICAL!**********
+    //      console.log(deck);
+    //      console.log(cardArray);
+    
+    // create game board
     const grid = document.querySelector('.grid')
     let cardsChosen = [];
     let cardsChosenId = [];
-    let cardsWon = [];
+    let cardsWon = [];   
 
     const createBoard = () => {
         for (let i=0;i<cardArray.length; i++) {
-            // console.log(i);
             let card = document.createElement('img');
-            card.setAttribute('src', 'static/'+cardArray[i]+'.png');
-            card.setAttribute('id', cardArray[i][0]);
+            card.setAttribute('src', cardArray[i].img);
+            // set the card ids to the rank of the card
+            card.setAttribute('id', cardArray[i].rank);
+            // ensure all cards created belong to the card class
             card.setAttribute('class', 'card');
-            
             // give id from 0-cardArray.length
             card.setAttribute('data-id', i);
-            card.addEventListener('click', flipCard)
+            card.addEventListener('click', flipCard);
             grid.appendChild(card);
         }
     }
@@ -56,15 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // flip cards
 
     flipCard = () => {
-        console.log('card should flip now!')
-        
-        let card = document.getElementById('card');
-        let cardAttributes = card.getAttribute('data-id');
-        console.log(cardAttributes);
+        var cardId = this.getAttribute('data-id');
         // let cardId = card.getAttribute('id');
-
-        // console.log('Card ID #: '+cardId);
-
         // cardsChosen.push(cardArray[cardId].name);
         cardsChosenId.push(cardId);
         this.setAttribute('src', cardArray[cardId].img);
